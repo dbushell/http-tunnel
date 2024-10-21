@@ -6,13 +6,6 @@ export const PORT = 3000;
 /** Default hostname */
 export const HOSTNAME = "0.0.0.0";
 
-/**
- * Maximum number of bytes to read/write from a TCP connection.
- * 1 KB is under the standard 1500 MTU which seems optimal.
- * Larger buffer sizes decimate upload speed.
- */
-export const BUFFER_SIZE = 1024;
-
 /** HTML body for 400 errors */
 export const BAD_REQUEST_BODY = `<!DOCTYPE html>
 <html>

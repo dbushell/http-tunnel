@@ -1,5 +1,5 @@
 import type { HttpTunnel, ServeTunnelOptions, TcpConnMap } from "./types.ts";
-import { BAD_REQUEST, BUFFER_SIZE, HOSTNAME, PORT } from "./constants.ts";
+import { BAD_REQUEST, HOSTNAME, PORT } from "./constants.ts";
 import { assert } from "jsr:@std/assert@1/assert";
 import { parseRequestLine } from "./parse.ts";
 
@@ -39,7 +39,7 @@ const handleConnection = async (
   conn: Deno.TcpConn,
   options: ServeTunnelOptions,
 ): Promise<void> => {
-  const buffer = new Uint8Array(BUFFER_SIZE);
+  const buffer = new Uint8Array(1024);
   const read = await conn.read(buffer);
   assert(read, "Silence");
   /**
