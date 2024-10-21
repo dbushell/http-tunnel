@@ -1,0 +1,7 @@
+services:
+  deno:
+    container_name: proxy
+    image: denoland/deno:2.0.0
+    command: deno run --allow-env --allow-net jsr:@dbushell/http-tunnel@0.3
+    ports:
+      - 0.0.0.0:3000:3000/tcp

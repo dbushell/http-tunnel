@@ -6,5 +6,6 @@
 !deno.json
 !README.md
 !LICENSE
+!docker-compose.yml
 !src
 !**/*.ts
