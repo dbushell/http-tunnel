@@ -1,6 +1,6 @@
 # 🚇 Deno HTTP Tunnel
 
-A secure [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel), aka [HTTP Web Proxy](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers), written in Deno flavoured TypeScript.
+A secure [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel) aka [HTTP Web Proxy](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) written in Deno flavoured TypeScript.
 
 ## Usage
 

@@ -1,3 +1,5 @@
+import type { HttpMethod } from "./types.ts";
+
 /** Default port */
 export const PORT = 3000;
 
@@ -30,3 +32,16 @@ Content-Length: ${BAD_REQUEST_BODY.length}\r
 Connection: close\r
 \r
 ${BAD_REQUEST_BODY}`;
+
+/** List of HTTP methods */
+export const METHODS = new Set<HttpMethod>([
+  "CONNECT",
+  "DELETE",
+  "GET",
+  "HEAD",
+  "OPTIONS",
+  "PATCH",
+  "POST",
+  "PUT",
+  "TRACE",
+]);
