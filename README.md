@@ -2,7 +2,7 @@
 
 [![JSR](https://jsr.io/badges/@dbushell/http-tunnel?labelColor=98e6c8&color=333)](https://jsr.io/@dbushell/http-tunnel)
 
-A secure [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel) aka [HTTP Web Proxy](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) written in Deno flavoured TypeScript.
+A secure [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel) aka [HTTP Proxy](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) server written in Deno flavoured TypeScript.
 
 ## Usage
 
@@ -34,7 +34,7 @@ curl --proxy "http://0.0.0.0:3000" "https://example.com"
 ## Notes
 
 * The server will only proxy secure requests (HTTPS)
-* Blog post: [Down The HTTP Tunnel Rabbit Hole](https://dbushell.com/2024/10/22/http-tunnel-proxy/)
+* Blog post: [HTTP Tunnel and Proxy in JavaScript](https://dbushell.com/2024/10/22/http-tunnel-proxy/)
 
 * * *
 
