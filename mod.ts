@@ -7,19 +7,30 @@ export type { HttpTunnel, ServeTunnelOptions };
 export { serveTunnel };
 
 if (import.meta.main) {
-  // Use env variables, command line args, or defaults
+  // Command line args
   const args = parseArgs(Deno.args, {
     boolean: ["keepalive", "nodelay"],
     string: ["hostname", "port", "username", "password"],
+    default: {
+      hostname: HOSTNAME,
+      port: String(PORT),
+      keepalive: true,
+      nodelay: false,
+    },
   });
-  const port = Number.parseInt(
-    Deno.env.get("PORT") ?? args["port"] ?? `${PORT}`,
-  );
-  const hostname = Deno.env.get("HOSTNAME") ?? args["hostname"] ?? HOSTNAME;
-  const noDelay = Deno.env.get("NODELAY") === "1" || args["nodelay"];
-  const keepAlive = Deno.env.get("KEEPALIVE") !== "0" || args["keepalive"];
-  const username = Deno.env.get("BASIC_USERNAME") ?? args["username"];
-  const password = Deno.env.get("BASIC_PASSWORD") ?? args["password"];
+
+  // Prefer env variables
+  const hostname = Deno.env.get("PROXY_HOSTNAME") ?? args["hostname"];
+  const port = Number.parseInt(Deno.env.get("PROXY_PORT") ?? args["port"]);
+  const username = Deno.env.get("PROXY_USERNAME") ?? args["username"];
+  const password = Deno.env.get("PROXY_PASSWORD") ?? args["password"];
+  const keepAlive = Deno.env.has("PROXY_KEEPALIVE")
+    ? Deno.env.get("PROXY_KEEPALIVE") === "1"
+    : args["keepalive"];
+  const noDelay = Deno.env.has("PROXY_NODELAY")
+    ? Deno.env.get("PROXY_NODELAY") === "1"
+    : args["nodelay"];
+
   // Start the server
   serveTunnel({ port, hostname, noDelay, keepAlive, username, password });
   console.info(
