@@ -1,4 +1,5 @@
 import type { HttpTunnel, ServeTunnelOptions } from "./src/types.ts";
+import { HOSTNAME, PORT } from "./src/constants.ts";
 import { serveTunnel } from "./src/serve.ts";
 import { parseArgs } from "jsr:@std/cli@1/parse-args";
 
@@ -11,8 +12,10 @@ if (import.meta.main) {
     boolean: ["keepalive", "nodelay"],
     string: ["hostname", "port", "username", "password"],
   });
-  const port = Number.parseInt(Deno.env.get("PORT") ?? args["port"] ?? "3000");
-  const hostname = Deno.env.get("HOSTNAME") ?? args["hostname"] ?? "0.0.0.0";
+  const port = Number.parseInt(
+    Deno.env.get("PORT") ?? args["port"] ?? `${PORT}`,
+  );
+  const hostname = Deno.env.get("HOSTNAME") ?? args["hostname"] ?? HOSTNAME;
   const noDelay = Deno.env.get("NODELAY") === "1" || args["nodelay"];
   const keepAlive = Deno.env.get("KEEPALIVE") !== "0" || args["keepalive"];
   const username = Deno.env.get("BASIC_USERNAME") ?? args["username"];
