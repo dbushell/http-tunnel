@@ -31,6 +31,12 @@ export type HttpTunnel = {
   shutdown: () => Promise<void>;
 };
 
+/**
+ * HTTP basic authentication credentials
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization}
+ */
+export type Credentials = { username: string; password: string };
+
 /** Options passed to `serveTunnel` function */
 export type ServeTunnelOptions = {
   /** Port to listen on */
@@ -51,4 +57,8 @@ export type ServeTunnelOptions = {
   keepAlive?: boolean;
   /** An `AbortSignal` to close the server  */
   signal?: AbortSignal;
+  /** Optional HTTP basic auth username */
+  username?: string;
+  /** Optional HTTP basic auth password */
+  password?: string;
 };

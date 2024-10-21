@@ -1,7 +1,9 @@
 import type { HttpTunnel, ServeTunnelOptions, TcpConnMap } from "./types.ts";
-import { BAD_REQUEST, HOSTNAME, PORT } from "./constants.ts";
+import { HOSTNAME, PORT } from "./constants.ts";
+import { parseAuthorization } from "./authorization.ts";
+import { parseRequest } from "./request.ts";
+import { errorResponse } from "./error.ts";
 import { assert } from "jsr:@std/assert@1/assert";
-import { parseRequest } from "./parse.ts";
 
 /** Development mode for more logs */
 const DEV = Deno.env.has("DEV");
@@ -53,9 +55,27 @@ const handleConnection = async (
   const match = request?.uri.match(/(.+):(\d+)/);
   // Ignore invalid requests
   if (!request || !match) {
-    await conn.write(new TextEncoder().encode(BAD_REQUEST));
+    await conn.write(errorResponse(400, "Bad Request"));
     closeConnection(conn);
     return;
+  }
+  // Validate basic authentication
+  if (options.username) {
+    const credentials = parseAuthorization(request.headers);
+    if (
+      options.username !== credentials?.username ||
+      options.password !== credentials?.password
+    ) {
+      await conn.write(
+        errorResponse(
+          407,
+          "Proxy Authentication Required",
+          new Headers({ "Proxy-Authenticate": "Basic" }),
+        ),
+      );
+      closeConnection(conn);
+      return;
+    }
   }
   assert(connMap.has(conn) === false, "Impossible");
   // Log new connection
