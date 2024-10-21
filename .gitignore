@@ -1,0 +1,10 @@
+/*
+/**/*.*
+!.github
+!.github/**/*.yml
+!.gitignore
+!deno.json
+!README.md
+!LICENSE
+!src
+!**/*.ts

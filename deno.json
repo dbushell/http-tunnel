@@ -1,0 +1,17 @@
+{
+  "name": "@dbushell/http-tunnel",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./mod.ts"
+  },
+  "publish": {
+    "include": ["src", "mod.ts", "deno.json", "LICENSE", "README.md"],
+    "exclude": [".github", "test"]
+  },
+  "lint": {
+    "include": ["**/*.ts"]
+  },
+  "tasks": {
+    "dev": "DEV=1 deno run --allow-env --allow-net mod.ts"
+  }
+}
