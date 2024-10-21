@@ -32,32 +32,6 @@ const closeConnection = (conn: Deno.TcpConn): void => {
 };
 
 /**
- * Read data from a TCP connection and write to its counterpart.
- * This continues until either connection is closed (or errors).
- * @param conn TCP connection
- */
-const proxyConnection = async (conn: Deno.TcpConn): Promise<void> => {
-  try {
-    while (true) {
-      const buffer = new Uint8Array(BUFFER_SIZE);
-      const read = await conn.read(buffer);
-      if (read === null) break;
-      if (read === 0) continue;
-      const counter = connMap.get(conn);
-      assert(counter, "No counter connection");
-      const written = await counter.write(buffer.subarray(0, read));
-      assert(written === read, "Failed counter write");
-    }
-  } catch (err) {
-    if (DEV && ((err as Error)?.name === "AssertionError")) {
-      console.error(err);
-    }
-  } finally {
-    closeConnection(conn);
-  }
-};
-
-/**
  * Establish the initial proxy connection
  * @param conn TCP connection
  */
@@ -99,8 +73,12 @@ const handleConnection = async (
   connMap.set(conn, counter);
   connMap.set(counter, conn);
   // Start proxying data
-  proxyConnection(conn);
-  proxyConnection(counter);
+  conn.readable
+    .pipeTo(counter.writable)
+    .catch(() => closeConnection(conn));
+  counter.readable
+    .pipeTo(conn.writable)
+    .catch(() => closeConnection(counter));
   // Send success response
   const message = "HTTP/1.1 200 OK\r\n\r\n";
   const written = await conn.write(new TextEncoder().encode(message));

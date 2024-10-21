@@ -33,7 +33,8 @@ curl --proxy "http://0.0.0.0:3000" "https://example.com"
 
 ## Notes
 
-* The server will only proxy secure requests (HTTPS).
+* The server will only proxy secure requests (HTTPS)
+* Blog post: [Down The HTTP Tunnel Rabbit Hole](https://dbushell.com/2024/10/22/http-tunnel-proxy/)
 
 * * *
 
