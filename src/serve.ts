@@ -1,6 +1,6 @@
 import type { HttpTunnel, ServeTunnelOptions, TcpConnMap } from "./types.ts";
 import { BAD_REQUEST, BUFFER_SIZE, HOSTNAME, PORT } from "./constants.ts";
-import { assert } from "jsr:@std/assert";
+import { assert } from "jsr:@std/assert@1";
 import { parseRequestLine } from "./parse.ts";
 
 /** Development mode for more logs */

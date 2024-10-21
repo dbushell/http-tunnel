@@ -1,6 +1,6 @@
 import type { HttpTunnel, ServeTunnelOptions } from "./src/types.ts";
 import { serveTunnel } from "./src/serve.ts";
-import { parseArgs } from "jsr:@std/cli/parse-args";
+import { parseArgs } from "jsr:@std/cli@1/parse-args";
 
 export type { HttpTunnel, ServeTunnelOptions };
 export { serveTunnel };
