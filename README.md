@@ -1,5 +1,7 @@
 # 🚇 Deno HTTP Tunnel
 
+[![JSR](https://jsr.io/badges/@dbushell/http-tunnel?labelColor=98e6c8&color=333)](https://jsr.io/@dbushell/http-tunnel)
+
 A secure [HTTP Tunnel](https://en.wikipedia.org/wiki/HTTP_tunnel) aka [HTTP Web Proxy](https://en.wikipedia.org/wiki/Proxy_server#Web_proxy_servers) written in Deno flavoured TypeScript.
 
 ## Usage
