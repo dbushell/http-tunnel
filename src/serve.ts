@@ -1,7 +1,7 @@
 import type { HttpTunnel, ServeTunnelOptions, TcpConnMap } from "./types.ts";
 import { BAD_REQUEST, HOSTNAME, PORT } from "./constants.ts";
 import { assert } from "jsr:@std/assert@1/assert";
-import { parseRequestLine } from "./parse.ts";
+import { parseRequest } from "./parse.ts";
 
 /** Development mode for more logs */
 const DEV = Deno.env.has("DEV");
@@ -48,11 +48,11 @@ const handleConnection = async (
    * {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/CONNECT}
    */
   const text = new TextDecoder().decode(buffer.subarray(0, read));
-  if (DEV) console.debug(text);
-  const line = parseRequestLine(text);
-  const match = line?.uri.match(/(.+):(\d+)/);
+  const request = parseRequest(text);
+  if (DEV) console.debug(text, request);
+  const match = request?.uri.match(/(.+):(\d+)/);
   // Ignore invalid requests
-  if (!line || !match) {
+  if (!request || !match) {
     await conn.write(new TextEncoder().encode(BAD_REQUEST));
     closeConnection(conn);
     return;

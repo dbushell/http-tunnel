@@ -14,10 +14,11 @@ export type HttpMethod =
   | "TRACE";
 
 /** Parsed HTTP request line */
-export type HttpRequestLine = {
+export type HttpRequest = {
   method: HttpMethod;
   uri: string;
   version: string;
+  headers: Headers;
 };
 
 /** Tunnel instance returned by `serveTunnel` function */
